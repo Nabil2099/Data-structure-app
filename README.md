@@ -59,34 +59,6 @@ flutter run
 
     ChatBot replies:
     A stack uses LIFO (Last-In-First-Out), while a queue uses FIFO (First-In-First-Out)...
-
-📦 Project Structure
-
-lib/
-├── components/                     # Reusable UI components
-│   ├── container.dart              # Custom container widget
-│   ├── descriptioncontainer.dart   # Widget for showing detailed descriptions
-│   ├── drawer.dart                 # Navigation drawer
-│   └── floatingactionbutton.dart   # Custom floating action button
-│
-├── hidden/                         # Internal or sensitive logic
-│   └── api.dart                    # API Key
-├── pages/                          # Main application screens
-│   ├── aboutpage.dart              # About the app screen
-│   ├── arraypage.dart              # Array data structure screen
-│   ├── chatbotpage.dart            # ChatBot screen
-│   ├── homepage.dart               # Home screen
-│   ├── linkedlistpage.dart         # Linked List screen
-│   ├── queuepage.dart              # Queue screen
-│   ├── stackpage.dart              # Stack screen
-│   └── visualization/              # Data structure visualizations
-│       ├── linkedlist_visualization.dart
-│       ├── queue_visualization.dart
-│       └── stack_visualization.dart
-│
-├── main.dart                       # Application entry point
-
-
 👨‍💻 Made by
 
 Mohamed – Flutter Developer
