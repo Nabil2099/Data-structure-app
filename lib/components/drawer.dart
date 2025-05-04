@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:datastructure/pages/homepage.dart';
+import 'package:datastructure/pages/arraypage.dart';
+import 'package:datastructure/pages/linkedlistpage.dart';
+import 'package:datastructure/pages/stackpage.dart';
+import 'package:datastructure/pages/queuepage.dart';
+import 'package:datastructure/pages/aboutpage.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 class MyDrawer extends StatefulWidget {
-  final hometap;
-  final arraytap;
-  final linkedlisttap;
-  final stacktap;
-  final queuetap;
+
   const MyDrawer({super.key,
-  required this.hometap,
-  required this.arraytap,
-  required this.linkedlisttap,
-  required this.stacktap,
-  required this.queuetap,
   });
 
   @override
@@ -46,40 +43,59 @@ class _MyDrawerState extends State<MyDrawer> {
               leading: const Icon(Icons.home, color: Colors.white),
               title: const Text('Home', style: TextStyle(color: Colors.white)),
               onTap: () {
-                widget.hometap();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const Homepage(),
+                  ),
+                );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
+              leading: const Icon(Icons.data_array, color: Colors.white),
               title:
                   const Text('Array', style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Handle array tap
-                widget.arraytap();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const Arraypage(),
+                  ),
+                );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
+              leading: const Icon(Icons.format_list_numbered, color: Colors.white),
               title:
                   const Text('Linked List', style: TextStyle(color: Colors.white)),
               onTap: () {
-                widget.linkedlisttap();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LinkedListPage(),
+                  ),
+                );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
+              leading: const Icon(LucideIcons.squareStack, color: Colors.white),
               title:
                   const Text('Stack', style: TextStyle(color: Colors.white)),
               onTap: () {
-                widget.stacktap();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const StackPage(),
+                  ),
+                );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
+              leading: const Icon(Icons.queue, color: Colors.white),
               title:
                   const Text('Queue', style: TextStyle(color: Colors.white)),
               onTap: () {
-                widget.queuetap();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const QueuePage(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -88,7 +104,11 @@ class _MyDrawerState extends State<MyDrawer> {
               title:
                   const Text('About', style: TextStyle(color: Colors.white)),
               onTap: () {
-                // Handle about tap
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutPage(),
+                  ),
+                );
               },
             ),
           ],

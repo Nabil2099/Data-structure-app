@@ -3,6 +3,9 @@ import 'package:datastructure/pages/arraypage.dart';
 import 'package:flutter/material.dart';
 import 'package:datastructure/components/container.dart';
 import 'package:datastructure/components/floatingactionbutton.dart';
+import 'linkedlistpage.dart';
+import 'stackpage.dart';
+import 'queuepage.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -14,31 +17,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(
-        hometap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const Homepage(),
-            ),
-          );
-        },
-        arraytap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const Arraypage(),
-            ),
-          );
-        },
-        linkedlisttap: () {
-          // Handle linked list tap
-        },
-        stacktap: () {
-          // Handle stack tap
-        },
-        queuetap: () {
-          // Handle queue tap
-        },
-      ),
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text('Data Structures',
               style: TextStyle(
@@ -68,26 +47,40 @@ class _HomepageState extends State<Homepage> {
                   );
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               MyContainer(
                 paragraph: 'Learn more about linked list and how to use it',
                 title: 'Linked List',
                 onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LinkedListPage(),
+                    ),
+                  );
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               MyContainer(
                 paragraph: 'Learn more about stack and how to use it',
                 title: 'Stack',
                 onPressed: () {
-                  Navigator.pushNamed(context, '/stack');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const StackPage(),
+                    ),
+                  );
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               MyContainer(
                 paragraph: 'Learn more about queue and how to use it',
                 title: 'Queue',
                 onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const QueuePage(),
+                    ),
+                  );
                 },
               ),
             ],
