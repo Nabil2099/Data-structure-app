@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:datastructure/pages/chatbotpage.dart';
 
 class MyActionButton extends StatelessWidget {
   const MyActionButton({super.key});
@@ -18,7 +19,11 @@ class MyActionButton extends StatelessWidget {
           ),
         ),
         onPressed: (){
-          //under construction
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const ChatBotPage(),
+            ),
+          );
         },
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
