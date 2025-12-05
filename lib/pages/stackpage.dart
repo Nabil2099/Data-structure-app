@@ -1,6 +1,5 @@
 import 'package:datastructure/components/drawer.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';
 import 'package:datastructure/components/descriptioncontainer.dart';
 import 'package:datastructure/components/floatingactionbutton.dart';
 import '../pages/visualization/stack_visualization.dart';
@@ -12,17 +11,16 @@ class StackPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: MyActionButton(),
-      drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text('Stack',
+        title: Text(
+          'Stack',
           style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFF0C8159),
         elevation: 4.5,
         shadowColor: Colors.white38,
       ),
@@ -42,7 +40,13 @@ class StackPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle. Elements are added (pushed) and removed (popped) only from the top of the stack.', style: TextStyle(color: Colors.white70, fontSize: 16)),
+                            Text(
+                              'A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle. Elements are added (pushed) and removed (popped) only from the top of the stack.',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -57,26 +61,52 @@ class StackPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('Pros:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                            Text(
+                              'Pros:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('• Simple and fast operations (push/pop are O(1)).', style: TextStyle(color: Colors.white70)),
-                                  Text('• Useful for function calls, undo operations, expression evaluation.', style: TextStyle(color: Colors.white70)),
+                                  Text(
+                                    '• Simple and fast operations (push/pop are O(1)).',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                  Text(
+                                    '• Useful for function calls, undo operations, expression evaluation.',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
                                 ],
                               ),
                             ),
                             SizedBox(height: 10),
-                            Text('Cons:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                            Text(
+                              'Cons:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('• Limited access (only top element accessible).', style: TextStyle(color: Colors.white70)),
-                                  Text('• Fixed size if implemented with arrays (unless using dynamic structures).', style: TextStyle(color: Colors.white70)),
+                                  Text(
+                                    '• Limited access (only top element accessible).',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                  Text(
+                                    '• Fixed size if implemented with arrays (unless using dynamic structures).',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
                                 ],
                               ),
                             ),
@@ -119,7 +149,11 @@ class StackPage extends StatelessWidget {
                             '    printf("%d\\n", pop()); // 10\n'
                             '    return 0;\n'
                             '}\n',
-                            style: TextStyle(fontFamily: 'monospace', color: Colors.white70, fontSize: 14),
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              color: Colors.white70,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ),
@@ -134,10 +168,22 @@ class StackPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('• Push: Add element to top (O(1)).', style: TextStyle(color: Colors.white70)),
-                            Text('• Pop: Remove element from top (O(1)).', style: TextStyle(color: Colors.white70)),
-                            Text('• Peek/Top: View top element (O(1)).', style: TextStyle(color: Colors.white70)),
-                            Text('• IsEmpty/IsFull: Check stack status.', style: TextStyle(color: Colors.white70)),
+                            Text(
+                              '• Push: Add element to top (O(1)).',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            Text(
+                              '• Pop: Remove element from top (O(1)).',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            Text(
+                              '• Peek/Top: View top element (O(1)).',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            Text(
+                              '• IsEmpty/IsFull: Check stack status.',
+                              style: TextStyle(color: Colors.white70),
+                            ),
                           ],
                         ),
                       ),
@@ -153,4 +199,4 @@ class StackPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

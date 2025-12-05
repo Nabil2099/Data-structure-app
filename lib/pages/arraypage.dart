@@ -4,6 +4,7 @@ import 'homepage.dart';
 import 'package:datastructure/components/descriptioncontainer.dart';
 import 'package:datastructure/components/floatingactionbutton.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+
 class Arraypage extends StatelessWidget {
   const Arraypage({super.key});
 
@@ -11,17 +12,16 @@ class Arraypage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: MyActionButton(),
-      drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text('Array',
+        title: Text(
+          'Array',
           style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFF0C8159),
         elevation: 4.5,
         shadowColor: Colors.white38,
       ),
@@ -38,16 +38,32 @@ class Arraypage extends StatelessWidget {
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                 ),
                 const SizedBox(height: 12),
-                const Text('Example Uses', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  'Example Uses',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 const Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('• Lookup tables — rapid random access.', style: TextStyle(color: Colors.white70)),
-                      Text('• Matrices / images — 2-D arrays.', style: TextStyle(color: Colors.white70)),
-                      Text('• Buffers in low-level I/O.', style: TextStyle(color: Colors.white70)),
+                      Text(
+                        '• Lookup tables — rapid random access.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        '• Matrices / images — 2-D arrays.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        '• Buffers in low-level I/O.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
                     ],
                   ),
                 ),
@@ -59,28 +75,60 @@ class Arraypage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Pros', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  'Pros',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('• Constant-time random access.', style: TextStyle(color: Colors.white70)),
-                      Text('• Memory locality → excellent cache performance.', style: TextStyle(color: Colors.white70)),
-                      Text('• Low overhead compared with linked data structures.', style: TextStyle(color: Colors.white70)),
+                      Text(
+                        '• Constant-time random access.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        '• Memory locality → excellent cache performance.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        '• Low overhead compared with linked data structures.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text('Cons', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                const Text(
+                  'Cons',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('• Fixed size (in most languages).', style: TextStyle(color: Colors.white70)),
-                      Text('• Insert/delete in the middle is O(n).', style: TextStyle(color: Colors.white70)),
-                      Text('• Costly resizing if capacity exceeded.', style: TextStyle(color: Colors.white70)),
+                      Text(
+                        '• Fixed size (in most languages).',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        '• Insert/delete in the middle is O(n).',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        '• Costly resizing if capacity exceeded.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
                     ],
                   ),
                 ),
@@ -110,7 +158,11 @@ class Arraypage extends StatelessWidget {
                   '    }\n'
                   '    return 0;\n'
                   '}\n',
-                  style: TextStyle(fontFamily: 'monospace', color: Colors.white70, fontSize: 14),
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    color: Colors.white70,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
@@ -120,10 +172,22 @@ class Arraypage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                Text('• Traversal: visit every element (O(n)).', style: TextStyle(color: Colors.white70)),
-                Text('• Search: linear O(n) or binary (O(log n)) if sorted.', style: TextStyle(color: Colors.white70)),
-                Text('• Insertion/Deletion: shift elements → O(n).', style: TextStyle(color: Colors.white70)),
-                Text('• Resizing: allocate new bigger array, copy data.', style: TextStyle(color: Colors.white70)),
+                Text(
+                  '• Traversal: visit every element (O(n)).',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                Text(
+                  '• Search: linear O(n) or binary (O(log n)) if sorted.',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                Text(
+                  '• Insertion/Deletion: shift elements → O(n).',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                Text(
+                  '• Resizing: allocate new bigger array, copy data.',
+                  style: TextStyle(color: Colors.white70),
+                ),
               ],
             ),
           ),

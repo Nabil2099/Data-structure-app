@@ -7,7 +7,8 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About',
+        title: const Text(
+          'About',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -44,7 +45,7 @@ class AboutPage extends StatelessWidget {
               Icon(Icons.data_object, color: Color(0xFF3FB950), size: 60),
               SizedBox(height: 18),
               Text(
-                'Data Structures Visualizer',
+                'Data Structurea and Algorithms Visualizer',
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -54,17 +55,17 @@ class AboutPage extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Text(
-                'A modern Flutter app to learn, explore, and visualize fundamental data structures like arrays, linked lists, stacks, and queues. Built for students, educators, and curious minds.',
+                'A modern Flutter app to learn, explore, and visualize fundamental data structures and algorithms.',
                 style: TextStyle(fontSize: 16, color: Colors.white70),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 24),
               Text(
                 'Author: Mohamed Nabil'
-                    '\n'
-                    'Idea: Ibrahim Adel'
-                    '\n'
-                    'Design: Ibrahim Tharwat',
+                '\n'
+                'Idea: Ibrahim Adel'
+                '\n'
+                'Design: Ibrahim Tharwat',
                 style: TextStyle(fontSize: 15, color: Color(0xFF3FB950)),
               ),
               SizedBox(height: 8),
@@ -78,4 +79,4 @@ class AboutPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

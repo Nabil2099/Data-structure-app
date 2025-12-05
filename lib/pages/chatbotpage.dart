@@ -12,26 +12,46 @@ class ChatBotPage extends StatefulWidget {
 
 class _ChatBotPageState extends State<ChatBotPage> {
   final TextEditingController _controller = TextEditingController();
-  final List<_ChatMessage> _messages = [];
+  // Static list for persistence across navigation
+  static final List<_ChatMessage> _history = [];
   bool _isLoading = false;
 
   late final GenerativeModel _model;
+
+  final List<String> _suggestions = [
+    "Explain Bubble Sort",
+    "What is a Stack?",
+    "BFS vs DFS",
+    "Time Complexity of Quick Sort",
+    "How does Binary Search work?",
+  ];
 
   @override
   void initState() {
     super.initState();
     _model = GenerativeModel(
-      model: 'gemini-1.5-flash', // Make sure this matches the correct model ID
+      model: 'gemini-2.5-pro', // Make sure this matches the correct model ID
       apiKey: apiKey,
     );
+
+    // Add welcome message if history is empty
+    if (_history.isEmpty) {
+      _history.add(
+        _ChatMessage(
+          "Hello! I'm your Data Structures & Algorithms assistant. How can I help you today?",
+          false,
+          DateTime.now(),
+        ),
+      );
+    }
   }
 
-  Future<void> _sendMessage() async {
-    final text = _controller.text.trim();
+  Future<void> _sendMessage([String? message]) async {
+    final text = message ?? _controller.text.trim();
     if (text.isEmpty) return;
 
     setState(() {
-      _messages.add(_ChatMessage(text, true, DateTime.now()));
+      _history.add(_ChatMessage(text, true, DateTime.now()));
       _isLoading = true;
       _controller.clear();
     });
@@ -40,13 +60,14 @@ class _ChatBotPageState extends State<ChatBotPage> {
       final response = await _model.generateContent([Content.text(text)]);
       final botReply = response.text ?? "Sorry, I couldn't understand that.";
       setState(() {
-        _messages.add(_ChatMessage(botReply, false, DateTime.now()));
+        _history.add(_ChatMessage(botReply, false, DateTime.now()));
         _isLoading = false;
       });
     } catch (e) {
       setState(() {
-        _messages.add(
-            _ChatMessage('Error: ${e.toString()}', false, DateTime.now()));
+        _history.add(
+          _ChatMessage('Error: ${e.toString()}', false, DateTime.now()),
+        );
         _isLoading = false;
       });
     }
@@ -70,9 +91,31 @@ class _ChatBotPageState extends State<ChatBotPage> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: _messages.length,
+              // Add 1 to item count for the suggestions if we are showing them
+              itemCount: _history.length + (_history.length <= 1 ? 1 : 0),
               itemBuilder: (context, index) {
-                final msg = _messages[index];
+                // Show suggestions at the end if history is just the welcome message
+                if (_history.length <= 1 && index == _history.length) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      children:
+                          _suggestions.map((suggestion) {
+                            return ActionChip(
+                              label: Text(suggestion),
+                              backgroundColor: const Color(0xFF232323),
+                              labelStyle: const TextStyle(color: Colors.white),
+                              onPressed: () => _sendMessage(suggestion),
+                            );
+                          }).toList(),
+                    ),
+                  );
+                }
+
+                final msg = _history[index];
                 if (msg.isUser) {
                   // User message (no avatar)
                   return Align(
@@ -80,7 +123,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 6),
                       padding: const EdgeInsets.all(14),
-                      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.7,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF16855E),
                         borderRadius: BorderRadius.circular(14),
@@ -90,12 +135,18 @@ class _ChatBotPageState extends State<ChatBotPage> {
                         children: [
                           Text(
                             msg.text,
-                            style: const TextStyle(color: Colors.black, fontSize: 16),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                            ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             DateFormat('hh:mm a').format(msg.time),
-                            style: const TextStyle(color: Colors.black54, fontSize: 11),
+                            style: const TextStyle(
+                              color: Colors.black54,
+                              fontSize: 11,
+                            ),
                           ),
                         ],
                       ),
@@ -109,16 +160,19 @@ class _ChatBotPageState extends State<ChatBotPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
-                          backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/4712/4712109.png'
+                          backgroundImage: NetworkImage(
+                            'https://cdn-icons-png.flaticon.com/512/4712/4712109.png',
                           ),
                           radius: 15,
-                          backgroundColor: Color(0xFF0C8159)
+                          backgroundColor: Color(0xFF0C8159),
                         ),
                         const SizedBox(width: 8),
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           padding: const EdgeInsets.all(14),
-                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.7,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xFF232323),
                             borderRadius: BorderRadius.circular(14),
@@ -128,12 +182,18 @@ class _ChatBotPageState extends State<ChatBotPage> {
                             children: [
                               Text(
                                 msg.text,
-                                style: const TextStyle(color: Colors.white, fontSize: 16),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 DateFormat('hh:mm a').format(msg.time),
-                                style: const TextStyle(color: Colors.white38, fontSize: 11),
+                                style: const TextStyle(
+                                  color: Colors.white38,
+                                  fontSize: 11,
+                                ),
                               ),
                             ],
                           ),
@@ -167,20 +227,28 @@ class _ChatBotPageState extends State<ChatBotPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(
-                              color: Colors.white24, width: 1.5),
+                            color: Colors.white24,
+                            width: 1.5,
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(
-                              color: Colors.white24, width: 1.5),
+                            color: Colors.white24,
+                            width: 1.5,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                          const BorderSide(color: Color(0xFF3FB950), width: 2),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF3FB950),
+                            width: 2,
+                          ),
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                       ),
                       onSubmitted: (_) => _sendMessage(),
                     ),
@@ -188,7 +256,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   const SizedBox(width: 8),
                   IconButton(
                     icon: const Icon(Icons.send, color: Color(0xFF3FB950)),
-                    onPressed: _isLoading ? null : _sendMessage,
+                    onPressed: _isLoading ? null : () => _sendMessage(),
                   ),
                 ],
               ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'package:datastructure/components/descriptioncontainer.dart';
 import 'package:datastructure/components/floatingactionbutton.dart';
-import '../pages/visualization/linkedlist_visualization.dart';
+
+import 'package:datastructure/components/visualization/linked_list_visualizer.dart';
 
 class LinkedListPage extends StatelessWidget {
   const LinkedListPage({super.key});
@@ -12,23 +13,25 @@ class LinkedListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: MyActionButton(),
-      drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text('Linked List',
+        title: Text(
+          'Linked List',
           style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFF0C8159),
         elevation: 4.5,
         shadowColor: Colors.white38,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 20),
+            const LinkedListVisualizer(),
+            const SizedBox(height: 20),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -42,7 +45,13 @@ class LinkedListPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('A linked list is a linear data structure where each element (node) contains a value and a reference (pointer) to the next node in the sequence. Unlike arrays, linked lists do not require contiguous memory and can grow or shrink dynamically.', style: TextStyle(color: Colors.white70, fontSize: 16)),
+                            Text(
+                              'A linked list is a linear data structure where each element (node) contains a value and a reference (pointer) to the next node in the sequence. Unlike arrays, linked lists do not require contiguous memory and can grow or shrink dynamically.',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -57,28 +66,60 @@ class LinkedListPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('Pros:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                            Text(
+                              'Pros:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('• Dynamic size (easy to grow/shrink).', style: TextStyle(color: Colors.white70)),
-                                  Text('• Efficient insertions/deletions at the beginning or middle (O(1) if node is known).', style: TextStyle(color: Colors.white70)),
-                                  Text('• No memory waste due to fixed size.', style: TextStyle(color: Colors.white70)),
+                                  Text(
+                                    '• Dynamic size (easy to grow/shrink).',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                  Text(
+                                    '• Efficient insertions/deletions at the beginning or middle (O(1) if node is known).',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                  Text(
+                                    '• No memory waste due to fixed size.',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
                                 ],
                               ),
                             ),
                             SizedBox(height: 10),
-                            Text('Cons:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                            Text(
+                              'Cons:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('• No constant-time random access (O(n) to access by index).', style: TextStyle(color: Colors.white70)),
-                                  Text('• Extra memory for pointers.', style: TextStyle(color: Colors.white70)),
-                                  Text('• Poor cache locality compared to arrays.', style: TextStyle(color: Colors.white70)),
+                                  Text(
+                                    '• No constant-time random access (O(n) to access by index).',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                  Text(
+                                    '• Extra memory for pointers.',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                  Text(
+                                    '• Poor cache locality compared to arrays.',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
                                 ],
                               ),
                             ),
@@ -121,7 +162,11 @@ class LinkedListPage extends StatelessWidget {
                             '    }\n'
                             '    return 0;\n'
                             '}\n',
-                            style: TextStyle(fontFamily: 'monospace', color: Colors.white70, fontSize: 14),
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              color: Colors.white70,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ),
@@ -136,10 +181,22 @@ class LinkedListPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('• Traversal: Visit every node (O(n)).', style: TextStyle(color: Colors.white70)),
-                            Text('• Insertion/Deletion: O(1) if node is known, O(n) if searching by value/index.', style: TextStyle(color: Colors.white70)),
-                            Text('• Search: O(n) linear search.', style: TextStyle(color: Colors.white70)),
-                            Text('• No random access: Must traverse from head.', style: TextStyle(color: Colors.white70)),
+                            Text(
+                              '• Traversal: Visit every node (O(n)).',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            Text(
+                              '• Insertion/Deletion: O(1) if node is known, O(n) if searching by value/index.',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            Text(
+                              '• Search: O(n) linear search.',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            Text(
+                              '• No random access: Must traverse from head.',
+                              style: TextStyle(color: Colors.white70),
+                            ),
                           ],
                         ),
                       ),
@@ -149,10 +206,9 @@ class LinkedListPage extends StatelessWidget {
                 ],
               ),
             ),
-            const LinkedListVisualization(),
           ],
         ),
       ),
     );
   }
-} 
+}

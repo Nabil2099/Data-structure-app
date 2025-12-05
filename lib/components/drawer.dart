@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:datastructure/pages/homepage.dart';
-import 'package:datastructure/pages/arraypage.dart';
-import 'package:datastructure/pages/linkedlistpage.dart';
-import 'package:datastructure/pages/stackpage.dart';
-import 'package:datastructure/pages/queuepage.dart';
 import 'package:datastructure/pages/aboutpage.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-class MyDrawer extends StatefulWidget {
 
-  const MyDrawer({super.key,
-  });
+class MyDrawer extends StatefulWidget {
+  const MyDrawer({super.key});
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
@@ -25,12 +19,10 @@ class _MyDrawerState extends State<MyDrawer> {
           padding: EdgeInsets.all(5),
           children: [
             const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFF121212),
-              ),
+              decoration: BoxDecoration(color: Color(0xFF121212)),
               child: Center(
                 child: Text(
-                  'Data Structures',
+                  'DSA App',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
@@ -40,74 +32,43 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.home, color: Colors.white),
-              title: const Text('Home', style: TextStyle(color: Colors.white)),
+              leading: const Icon(Icons.data_usage, color: Colors.white),
+              title: const Text(
+                'Data Structures',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-                Navigator.of(context).push(
+                Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const Homepage(),
+                    builder:
+                        (context) =>
+                            const Homepage(initialShowAlgorithms: false),
                   ),
                 );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.data_array, color: Colors.white),
-              title:
-                  const Text('Array', style: TextStyle(color: Colors.white)),
+              leading: const Icon(Icons.code, color: Colors.white),
+              title: const Text(
+                'Algorithms',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-                Navigator.of(context).push(
+                Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const Arraypage(),
+                    builder:
+                        (context) =>
+                            const Homepage(initialShowAlgorithms: true),
                   ),
                 );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.format_list_numbered, color: Colors.white),
-              title:
-                  const Text('Linked List', style: TextStyle(color: Colors.white)),
+              leading: const Icon(Icons.info, color: Colors.white),
+              title: const Text('About', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const LinkedListPage(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(LucideIcons.squareStack, color: Colors.white),
-              title:
-                  const Text('Stack', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const StackPage(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.queue, color: Colors.white),
-              title:
-                  const Text('Queue', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const QueuePage(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading:
-                  const Icon(Icons.info, color: Colors.white),
-              title:
-                  const Text('About', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AboutPage(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const AboutPage()),
                 );
               },
             ),
@@ -117,4 +78,3 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 }
-
