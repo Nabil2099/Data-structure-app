@@ -1,201 +1,163 @@
-import 'package:datastructure/components/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:datastructure/components/descriptioncontainer.dart';
 import 'package:datastructure/components/floatingactionbutton.dart';
-import '../pages/visualization/queue_visualization.dart';
+import '../core/models/topic.dart';
+import '../core/services/progress_service.dart';
+import '../features/visualizer/queue/queue_visualizer.dart';
+import '../features/practice/pages/quiz_page.dart';
+import '../core/services/gemini_service.dart';
+import '../core/config/api_config.dart';
+import 'chatbotpage.dart';
 
-class QueuePage extends StatelessWidget {
+class QueuePage extends StatefulWidget {
   const QueuePage({super.key});
+
+  @override
+  State<QueuePage> createState() => _QueuePageState();
+}
+
+class _QueuePageState extends State<QueuePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ProgressService().markIntroductionViewed(DataStructureTopic.queues);
+      ProgressService().markOperationsViewed(DataStructureTopic.queues);
+      ProgressService().markComplexityViewed(DataStructureTopic.queues);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: MyActionButton(),
+      floatingActionButton: const MyActionButton(),
       appBar: AppBar(
-        title: Text(
-          'Queue',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+        title: const Text('Queue', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
         centerTitle: true,
         elevation: 4.5,
         shadowColor: Colors.white38,
+        backgroundColor: const Color(0xFF0C8159),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(width: 16),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: DescriptionCard(
-                      title: 'Overview',
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'A queue is a linear data structure that follows the First-In-First-Out (FIFO) principle. Elements are added at the rear and removed from the front.',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    ProgressService().markVisualizerUsed(DataStructureTopic.queues);
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const QueueVisualizerScreen()));
+                  },
+                  icon: const Icon(Icons.play_circle_filled, size: 18),
+                  label: const Text('Open Visualizer'),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF3FB950), foregroundColor: Colors.black),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizPage(topic: DataStructureTopic.queues)));
+                  },
+                  icon: const Icon(Icons.quiz, size: 18),
+                  label: const Text('Practice'),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0C8159), foregroundColor: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton.icon(
+            onPressed: () {
+              if (ApiConfig.isConfigured) GeminiService().initWithKey(ApiConfig.geminiApiKey);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ChatBotPage(initialPrompt: 'Explain Queues with FIFO example. Why is Queue used for printer jobs and BFS?')));
+            },
+            icon: const Icon(Icons.smart_toy, size: 18),
+            label: const Text('Ask AI about Queues'),
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF232323), foregroundColor: Colors.white),
+          ),
+          const SizedBox(height: 16),
+          DescriptionCard(
+            title: 'Overview',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'A queue is a linear data structure that follows the First-In-First-Out (FIFO) principle. Elements are added (enqueued) at the rear and removed (dequeued) from the front.',
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+                SizedBox(height: 8),
+                Text('Real-world: Printer scheduling, task queues, BFS', style: TextStyle(color: Colors.white54, fontSize: 13)),
+              ],
+            ),
+          ),
+          DescriptionCard(
+            title: 'Pros & Cons',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Pros:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('• Fair ordering — FIFO ensures first come first served.', style: TextStyle(color: Colors.white70)),
+                      Text('• Fast O(1) enqueue/dequeue with proper implementation.', style: TextStyle(color: Colors.white70)),
+                    ],
                   ),
-                  SizedBox(width: 16),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: DescriptionCard(
-                      title: 'Pros & Cons',
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Pros:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '• Simple and fast operations (enqueue/dequeue are O(1)).',
-                                    style: TextStyle(color: Colors.white70),
-                                  ),
-                                  Text(
-                                    '• Useful for scheduling, buffering, breadth-first search.',
-                                    style: TextStyle(color: Colors.white70),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Cons:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '• Fixed size if implemented with arrays (unless using dynamic structures).',
-                                    style: TextStyle(color: Colors.white70),
-                                  ),
-                                  Text(
-                                    '• No random access to elements.',
-                                    style: TextStyle(color: Colors.white70),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                ),
+                SizedBox(height: 10),
+                Text('Cons:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+                Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('• Limited access (only front/rear).', style: TextStyle(color: Colors.white70)),
+                      Text('• Array implementation has O(n) dequeue if not circular.', style: TextStyle(color: Colors.white70)),
+                    ],
                   ),
-                  SizedBox(width: 16),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: DescriptionCard(
-                      title: 'Code Example (C)',
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Container(
-                          color: Color(0xFF232323),
-                          padding: EdgeInsets.all(12),
-                          child: const Text(
-                            '#include <stdio.h>\n'
-                            '#define MAX 100\n'
-                            '\n'
-                            'int queue[MAX], front = 0, rear = -1;\n'
-                            '\n'
-                            'void enqueue(int x) {\n'
-                            '    if (rear < MAX - 1)\n'
-                            '        queue[++rear] = x;\n'
-                            '}\n'
-                            '\n'
-                            'int dequeue() {\n'
-                            '    if (front <= rear)\n'
-                            '        return queue[front++];\n'
-                            '    return -1;\n'
-                            '}\n'
-                            '\n'
-                            'int main() {\n'
-                            '    enqueue(10);\n'
-                            '    enqueue(20);\n'
-                            '    printf("%d\\n", dequeue()); // 10\n'
-                            '    printf("%d\\n", dequeue()); // 20\n'
-                            '    return 0;\n'
-                            '}\n',
-                            style: TextStyle(
-                              fontFamily: 'monospace',
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: DescriptionCard(
-                      title: 'Common Operations',
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              '• Enqueue: Add element to rear (O(1)).',
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                            Text(
-                              '• Dequeue: Remove element from front (O(1)).',
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                            Text(
-                              '• Peek/Front: View front element (O(1)).',
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                            Text(
-                              '• IsEmpty/IsFull: Check queue status.',
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                ],
+                ),
+              ],
+            ),
+          ),
+          DescriptionCard(
+            title: 'Code Example (C)',
+            child: Container(
+              color: const Color(0xFF232323),
+              padding: const EdgeInsets.all(12),
+              child: const Text(
+                '#include <stdio.h>\n#define MAX 100\n\nint queue[MAX], front = -1, rear = -1;\n\nvoid enqueue(int x) {\n    if (rear < MAX-1) {\n        if (front==-1) front=0;\n        queue[++rear]=x;\n    }\n}\nint dequeue() {\n    if (front==-1 || front>rear) return -1;\n    return queue[front++];\n}\n',
+                style: TextStyle(fontFamily: 'monospace', color: Colors.white70, fontSize: 14),
               ),
             ),
-            const QueueVisualization(),
-          ],
-        ),
+          ),
+          DescriptionCard(
+            title: 'Common Operations',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('• Enqueue: Add at rear (O(1)).', style: TextStyle(color: Colors.white70)),
+                Text('• Dequeue: Remove from front (O(1)).', style: TextStyle(color: Colors.white70)),
+                Text('• Front/Peek: View front element.', style: TextStyle(color: Colors.white70)),
+                Text('• IsEmpty/IsFull checks.', style: TextStyle(color: Colors.white70)),
+              ],
+            ),
+          ),
+          DescriptionCard(
+            title: 'Time Complexity',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('• Enqueue: O(1)', style: TextStyle(color: Colors.white70)),
+                Text('• Dequeue: O(1) with linked list/circular', style: TextStyle(color: Colors.white70)),
+                Text('• Peek: O(1)', style: TextStyle(color: Colors.white70)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

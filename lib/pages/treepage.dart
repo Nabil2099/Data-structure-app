@@ -3,27 +3,27 @@ import 'package:datastructure/components/descriptioncontainer.dart';
 import 'package:datastructure/components/floatingactionbutton.dart';
 import '../core/models/topic.dart';
 import '../core/services/progress_service.dart';
-import '../features/visualizer/linked_list/linked_list_visualizer.dart';
+import '../features/visualizer/tree/tree_visualizer.dart';
 import '../features/practice/pages/quiz_page.dart';
 import '../core/services/gemini_service.dart';
 import '../core/config/api_config.dart';
 import 'chatbotpage.dart';
 
-class LinkedListPage extends StatefulWidget {
-  const LinkedListPage({super.key});
+class TreePage extends StatefulWidget {
+  const TreePage({super.key});
 
   @override
-  State<LinkedListPage> createState() => _LinkedListPageState();
+  State<TreePage> createState() => _TreePageState();
 }
 
-class _LinkedListPageState extends State<LinkedListPage> {
+class _TreePageState extends State<TreePage> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ProgressService().markIntroductionViewed(DataStructureTopic.linkedLists);
-      ProgressService().markOperationsViewed(DataStructureTopic.linkedLists);
-      ProgressService().markComplexityViewed(DataStructureTopic.linkedLists);
+      ProgressService().markIntroductionViewed(DataStructureTopic.trees);
+      ProgressService().markOperationsViewed(DataStructureTopic.trees);
+      ProgressService().markComplexityViewed(DataStructureTopic.trees);
     });
   }
 
@@ -32,7 +32,7 @@ class _LinkedListPageState extends State<LinkedListPage> {
     return Scaffold(
       floatingActionButton: const MyActionButton(),
       appBar: AppBar(
-        title: const Text('Linked List', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+        title: const Text('Trees', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
         centerTitle: true,
         elevation: 4.5,
         shadowColor: Colors.white38,
@@ -46,8 +46,8 @@ class _LinkedListPageState extends State<LinkedListPage> {
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    ProgressService().markVisualizerUsed(DataStructureTopic.linkedLists);
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const LinkedListVisualizerScreen()));
+                    ProgressService().markVisualizerUsed(DataStructureTopic.trees);
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const TreeVisualizerScreen()));
                   },
                   icon: const Icon(Icons.play_circle_filled, size: 18),
                   label: const Text('Open Visualizer'),
@@ -58,7 +58,7 @@ class _LinkedListPageState extends State<LinkedListPage> {
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizPage(topic: DataStructureTopic.linkedLists)));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizPage(topic: DataStructureTopic.trees)));
                   },
                   icon: const Icon(Icons.quiz, size: 18),
                   label: const Text('Practice'),
@@ -71,10 +71,10 @@ class _LinkedListPageState extends State<LinkedListPage> {
           ElevatedButton.icon(
             onPressed: () {
               if (ApiConfig.isConfigured) GeminiService().initWithKey(ApiConfig.geminiApiKey);
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const ChatBotPage(initialPrompt: 'Explain Linked Lists with HEAD → nodes → null. Why insert at head is O(1)?')));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ChatBotPage(initialPrompt: 'Explain Binary Search Trees. Why left < parent < right? Explain inorder gives sorted order.')));
             },
             icon: const Icon(Icons.smart_toy, size: 18),
-            label: const Text('Ask AI about Linked Lists'),
+            label: const Text('Ask AI about Trees'),
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF232323), foregroundColor: Colors.white),
           ),
           const SizedBox(height: 16),
@@ -84,11 +84,13 @@ class _LinkedListPageState extends State<LinkedListPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  'A linked list is a linear data structure where each element (node) contains a value and a reference (pointer) to the next node. Unlike arrays, linked lists do not require contiguous memory and can grow or shrink dynamically.',
+                  'A tree is a hierarchical data structure with a root node and child nodes. A Binary Search Tree (BST) is a binary tree where left child < parent < right child, enabling efficient search.',
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                 ),
-                SizedBox(height: 8),
-                Text('HEAD → [10] → [20] → [30] → null', style: TextStyle(color: Colors.white54, fontFamily: 'monospace', fontSize: 13)),
+                SizedBox(height: 12),
+                Text('Example Structure:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 14)),
+                SizedBox(height: 6),
+                Text('        50\n       /  \\\n     30    70\n    / \\    / \\\n   20 40  60 80', style: TextStyle(color: Colors.white54, fontFamily: 'monospace', fontSize: 13)),
               ],
             ),
           ),
@@ -103,9 +105,9 @@ class _LinkedListPageState extends State<LinkedListPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('• Dynamic size (easy to grow/shrink).', style: TextStyle(color: Colors.white70)),
-                      Text('• Efficient insertions/deletions at beginning or middle (O(1) if node is known).', style: TextStyle(color: Colors.white70)),
-                      Text('• No memory waste due to fixed size.', style: TextStyle(color: Colors.white70)),
+                      Text('• Efficient search O(log n) average when balanced.', style: TextStyle(color: Colors.white70)),
+                      Text('• Hierarchical representation (file system, DOM).', style: TextStyle(color: Colors.white70)),
+                      Text('• Inorder gives sorted order for BST.', style: TextStyle(color: Colors.white70)),
                     ],
                   ),
                 ),
@@ -116,9 +118,9 @@ class _LinkedListPageState extends State<LinkedListPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('• No constant-time random access (O(n) to access by index).', style: TextStyle(color: Colors.white70)),
-                      Text('• Extra memory for pointers.', style: TextStyle(color: Colors.white70)),
-                      Text('• Poor cache locality compared to arrays.', style: TextStyle(color: Colors.white70)),
+                      Text('• Worst O(n) if skewed (like linked list).', style: TextStyle(color: Colors.white70)),
+                      Text('• More complex implementation than arrays.', style: TextStyle(color: Colors.white70)),
+                      Text('• No random access by index.', style: TextStyle(color: Colors.white70)),
                     ],
                   ),
                 ),
@@ -126,25 +128,26 @@ class _LinkedListPageState extends State<LinkedListPage> {
             ),
           ),
           DescriptionCard(
-            title: 'Code Example (C)',
-            child: Container(
-              color: const Color(0xFF232323),
-              padding: const EdgeInsets.all(12),
-              child: const Text(
-                '#include <stdio.h>\n#include <stdlib.h>\n\nstruct Node {\n    int data;\n    struct Node* next;\n};\n\nint main() {\n    struct Node* head = malloc(sizeof(struct Node));\n    head->data = 10;\n    head->next = malloc(sizeof(struct Node));\n    head->next->data = 20;\n    head->next->next = NULL;\n\n    // Traverse\n    struct Node* temp = head;\n    while (temp != NULL) {\n        printf("%d ", temp->data);\n        temp = temp->next;\n    }\n    return 0;\n}\n',
-                style: TextStyle(fontFamily: 'monospace', color: Colors.white70, fontSize: 14),
-              ),
-            ),
-          ),
-          DescriptionCard(
-            title: 'Common Operations',
+            title: 'Traversals',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                Text('• Traversal: Visit every node (O(n)).', style: TextStyle(color: Colors.white70)),
-                Text('• Insertion/Deletion: O(1) if node is known, O(n) if searching by value/index.', style: TextStyle(color: Colors.white70)),
-                Text('• Search: O(n) linear search.', style: TextStyle(color: Colors.white70)),
-                Text('• No random access: Must traverse from head.', style: TextStyle(color: Colors.white70)),
+                Text('• Inorder: Left → Root → Right — sorted order for BST', style: TextStyle(color: Colors.white70)),
+                Text('• Preorder: Root → Left → Right — copy tree', style: TextStyle(color: Colors.white70)),
+                Text('• Postorder: Left → Right → Root — delete tree', style: TextStyle(color: Colors.white70)),
+                Text('• Level order: BFS level by level using queue', style: TextStyle(color: Colors.white70)),
+              ],
+            ),
+          ),
+          DescriptionCard(
+            title: 'Time Complexity',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('• Search: O(log n) avg, O(n) worst', style: TextStyle(color: Colors.white70)),
+                Text('• Insert: O(log n) avg, O(n) worst', style: TextStyle(color: Colors.white70)),
+                Text('• Delete: O(log n) avg, O(n) worst', style: TextStyle(color: Colors.white70)),
+                Text('• Traversal: O(n) visits each node', style: TextStyle(color: Colors.white70)),
               ],
             ),
           ),

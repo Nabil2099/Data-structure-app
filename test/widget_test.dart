@@ -1,30 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:datastructure/main.dart';
+import 'package:datastructure/core/models/topic.dart';
+import 'package:datastructure/core/models/progress_models.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('App loads and shows bottom navigation', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
+    // Should have bottom navigation with 5 items
+    expect(find.byType(BottomNavigationBar), findsOneWidget);
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Learn'), findsOneWidget);
+    expect(find.text('Practice'), findsOneWidget);
+    expect(find.text('AI Tutor'), findsOneWidget);
+    expect(find.text('Progress'), findsOneWidget);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test('TopicProgress model works', () {
+    final tp = TopicProgress(topic: DataStructureTopic.arrays);
+    expect(tp.topic, DataStructureTopic.arrays);
+    expect(tp.completionPercentage, 0);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test('DataStructureTopic display names', () {
+    expect(DataStructureTopic.arrays.displayName, 'Arrays');
+    expect(DataStructureTopic.stacks.displayName, 'Stacks');
+    expect(DataStructureTopic.hashTables.displayName, 'Hash Tables');
   });
 }
