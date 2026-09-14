@@ -6,6 +6,9 @@ import 'arraypage.dart';
 import 'linkedlistpage.dart';
 import 'stackpage.dart';
 import 'queuepage.dart';
+import 'treepage.dart';
+import 'graphpage.dart';
+import 'hashtablepage.dart';
 import 'algorithms/sorting/insertion_sort_page.dart';
 import 'algorithms/sorting/bubble_sort_page.dart';
 import 'algorithms/sorting/merge_sort_page.dart';
@@ -149,6 +152,39 @@ class _HomepageState extends State<Homepage> {
             Navigator.of(
               context,
             ).push(MaterialPageRoute(builder: (context) => const QueuePage()));
+          },
+        ),
+        const SizedBox(height: 10),
+        MyContainer(
+          paragraph: 'Hierarchical BST, left < parent < right, traversals',
+          title: 'Trees',
+          icon: Icons.account_tree,
+          onPressed: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => const TreePage()));
+          },
+        ),
+        const SizedBox(height: 10),
+        MyContainer(
+          paragraph: 'Nodes and edges, BFS with queue, DFS with stack',
+          title: 'Graphs',
+          icon: Icons.hub,
+          onPressed: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => const GraphPage()));
+          },
+        ),
+        const SizedBox(height: 10),
+        MyContainer(
+          paragraph: 'Key-value O(1) avg, collisions with separate chaining',
+          title: 'Hash Tables',
+          icon: Icons.table_chart,
+          onPressed: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => const HashTablePage()));
           },
         ),
       ],

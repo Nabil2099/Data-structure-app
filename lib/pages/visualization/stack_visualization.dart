@@ -107,7 +107,7 @@ class _StackVisualizationState extends State<StackVisualization> {
       width: 180,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: fill ? const Color(0xFF3FB950) : const Color(0xFF3FB950).withOpacity(0.8),
+          backgroundColor: fill ? const Color(0xFF3FB950) : const Color(0xFF3FB950).withValues(alpha: 0.8),
           foregroundColor: Colors.black,
           textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           padding: const EdgeInsets.symmetric(vertical: 14),
